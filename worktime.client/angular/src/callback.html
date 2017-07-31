@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <a href="oidc-client-sample.html">back to sample</a>
+    </div>
+    <pre id='out'></pre>
+    <script src="log.js"></script>
+    <script src="oidc-client.min.js"></script>
+    <script>
+      new Oidc.UserManager().signinRedirectCallback().then(function () {
+            window.location = "index.html";
+        }).catch(function (e) {
+            log(e);
+        });
+    </script>
+</body>
+</html>

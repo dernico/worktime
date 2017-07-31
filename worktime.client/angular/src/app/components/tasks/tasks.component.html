@@ -1,0 +1,15 @@
+
+<h1>Hallo2</h1>
+
+<label>Title: <input [(ngModel)]="todoTitle" /></label>
+<label>Description: <input [(ngModel)]="todoDescription" /></label>
+
+<button (click)="newTodo()">Add</button>
+
+<ul *ngIf="todos" class="todos">
+  <li *ngFor="let todo of todos">
+    <h3>{{todo.title}}</h3>
+    <p>{{todo.description}}</p>
+    <button (click)="deleteTodo(todo.id)">Delete</button>
+  </li>
+</ul>
