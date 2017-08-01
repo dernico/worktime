@@ -11,6 +11,7 @@
         "assets",
         "favicon.ico",
         "callback.html",
+        "silent-renew.html",
         "log.js",
         "oidc-client.min.js"
       ],

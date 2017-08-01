@@ -23,7 +23,7 @@ export class WebclientService {
                 const bearer = `Bearer ${user.id_token}`;
                 options.headers.append("Authorization", bearer);
 
-                console.log('get request: ' + url);
+                console.log(`get request: ${url}`);
                 return this.http
                     .get(url, options)
                     .toPromise()

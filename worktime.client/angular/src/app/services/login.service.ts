@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserManager, User, MetadataService, OidcClient } from "oidc-client";
+import { config } from '../authconfig';
 
 @Injectable()
 export class LoginService {
@@ -38,21 +39,12 @@ export class LoginService {
   }
 
   logout() {
-    this.client.createSignoutRequest().then(req => {
-      this.mgr.removeUser().then(() => {
-        window.location.href = req.url;
-      });
+    this.mgr.removeUser().then(() => {
+      //this.userLoadededEvent.emit(null);
+      console.log('user removed');
+      window.location.href = "http://localhost:4200/index.html";
+    }).catch(function (err) {
+      console.log(err);
     });
   }
 }
-
-
-const config: any = {
-  authority: "https://accounts.google.com",
-  client_id: "793729558350-58etvsoelqbc8pi5lknlven67esr03vh.apps.googleusercontent.com",
-  client_secret: "jjgBcDv28Uqz-VaEueBX4Gwb",
-  redirect_uri: "http://localhost:4200/callback.html",
-  response_type: "id_token token", // id_token token / id_token / token / code
-  scope: "openid profile",
-  post_logout_redirect_uri: "http://localhost:4200/index.html",
-};
