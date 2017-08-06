@@ -47,7 +47,7 @@ export class WebclientService {
                 }
 
                 options.headers.append('Accept', 'application/json');
-                const bearer = `Bearer ${user.access_token}`;
+                const bearer = `Bearer ${user.id_token}`;
                 options.headers.append("Authorization", bearer);
                 
                 return this.http
@@ -70,7 +70,7 @@ export class WebclientService {
                 }
 
                 options.headers.append('Accept', 'application/json');
-                const bearer = `Bearer ${user.access_token}`;
+                const bearer = `Bearer ${user.id_token}`;
                 options.headers.append("Authorization", bearer);
                 
                 return this.http

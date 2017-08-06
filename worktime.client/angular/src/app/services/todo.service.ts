@@ -1,11 +1,11 @@
 import { Injectable, Inject } from "@angular/core";
-import { Todo } from "../models/todo";
+import { WorkEntry } from "../models/workentry";
 import { WebclientService } from "./webclient.service";
 import { Headers, Http } from "@angular/http";
 
 import 'rxjs/add/operator/toPromise';
 
-const _baseUrl = "https://localhost:3000/";
+const _baseUrl = "http://localhost:3000/";
 
 
 @Injectable()
@@ -13,9 +13,9 @@ export class TodoService {
 
     constructor(private webclient : WebclientService) {}
 
-    loadTodos(): Promise<Todo[]> {
+    loadTodos(): Promise<WorkEntry[]> {
 
-        return this.webclient.get(_baseUrl + "api/values");
+        return this.webclient.get(_baseUrl + "api/workentry");
 
 
         //return new Promise((resolve, reject) => {
@@ -28,9 +28,9 @@ export class TodoService {
         //});
     }
 
-    addTodo(todo: Todo): Promise<any> {
+    addTodo(todo: WorkEntry): Promise<any> {
         
-        return this.webclient.post<Todo[]>(_baseUrl + "api/values", todo);
+        return this.webclient.post<WorkEntry[]>(_baseUrl + "api/workentry", todo);
 
         //return new Promise((resolve, reject) => {
 

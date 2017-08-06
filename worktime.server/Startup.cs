@@ -54,7 +54,7 @@ namespace worktime.server
             services.AddMvc(options =>
             {
                 //options.SslPort = 44300;
-                options.Filters.Add(new RequireHttpsAttribute ());
+                //options.Filters.Add(new RequireHttpsAttribute ());
             });
 
             services.AddTransient<Business.User.IUserBL, Business.User.UserBL>();
@@ -63,6 +63,7 @@ namespace worktime.server
             
             services.AddTransient<Data.DataStore.IWorkEntryDataStore, Data.DataStore.WorkEntryDataStore>();
             services.AddTransient<Data.Repository.IWorkEntryRepository, Data.Repository.WorkEntryRepository>();
+            services.AddTransient<Business.WorkEntrys.IWorkEntrysBL, Business.WorkEntrys.WorkEntrysBL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,11 +72,11 @@ namespace worktime.server
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            
-            var options = new RewriteOptions()
-            .AddRedirectToHttps();
+            // HTTPS
+            // var options = new RewriteOptions()
+            //     .AddRedirectToHttps();
 
-            app.UseRewriter(options);
+            // app.UseRewriter(options);
 
             app.UseStaticFiles();
                         

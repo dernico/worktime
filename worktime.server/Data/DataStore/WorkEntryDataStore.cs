@@ -7,6 +7,7 @@ namespace worktime.server.Data.DataStore
 {
   public class WorkEntryDataStore : IWorkEntryDataStore
   {
+    private const string _dataname = nameof(WorkEntryDataStore);
     public void Add(string userid, WorkEntry entry)
     {
         AddOrUpdate(userid, entry);
@@ -17,7 +18,7 @@ namespace worktime.server.Data.DataStore
     }
     private void AddOrUpdate(string userid, WorkEntry entry){
 
-        var dict = new FileDataStoreHelper()
+        var dict = new FileDataStoreHelper(_dataname)
             .Load<Dictionary<string, List<WorkEntry>>>();
 
         if(dict == null){
@@ -38,12 +39,13 @@ namespace worktime.server.Data.DataStore
             entrys.Remove(entrys.FirstOrDefault(e => e.Id == entry.Id));
             entrys.Add(entry);
         }
-        new FileDataStoreHelper().Save(dict);
+        dict[userid] = entrys;
+        new FileDataStoreHelper(_dataname).Save(dict);
     }
 
     public List<WorkEntry> GetWorkEntrys(string userid)
     {
-        var dict = new FileDataStoreHelper()
+        var dict = new FileDataStoreHelper(_dataname)
             .Load<Dictionary<string, List<WorkEntry>>>();
         
         if(dict == null){
@@ -60,7 +62,7 @@ namespace worktime.server.Data.DataStore
     {
         if(string.IsNullOrEmpty(entryid)) return null;
 
-        var dict = new FileDataStoreHelper()
+        var dict = new FileDataStoreHelper(_dataname)
             .Load<Dictionary<string, List<WorkEntry>>>();
         
         if(dict == null){

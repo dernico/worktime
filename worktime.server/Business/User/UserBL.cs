@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using worktime.server.Data.Model;
 using worktime.server.Data.Repository;
 
 namespace worktime.server.Business.User
@@ -11,6 +13,13 @@ namespace worktime.server.Business.User
     public UserBL(IUserRepository userRepro){
       _userRepro = userRepro;
     }
+
+    public Data.Model.User GetUser(List<Claim> claims)
+    {
+      var id = claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).FirstOrDefault();
+      return _userRepro.GetUser(id);
+    }
+
     void IUserBL.UpdateOrCreateUser(ClaimsPrincipal principal)
     {
       var id = principal.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).FirstOrDefault();

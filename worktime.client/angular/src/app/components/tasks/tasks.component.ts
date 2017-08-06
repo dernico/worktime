@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { LoginService } from '../../services/login.service';
 import { WebclientService } from '../../services/webclient.service';
-import { Todo } from '../../models/todo';
+import { WorkEntry } from '../../models/workentry';
 
 @Component({
     templateUrl: './tasks.component.html',
@@ -11,16 +11,17 @@ import { Todo } from '../../models/todo';
 })
 export class TasksComponent implements OnInit {
 
-    private todos: Todo[];
+    private todos: WorkEntry[];
     private todoTitle: string;
     private todoDescription: string;
 
     constructor(private todoService: TodoService) { }
 
     newTodo(title, description) {
-        const todo = new Todo();
+        const todo = new WorkEntry();
         todo.title = this.todoTitle;
         todo.description = this.todoDescription;
+        todo.startDate = new Date();
 
         this.todoService
             .addTodo(todo)

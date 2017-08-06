@@ -6,8 +6,13 @@ namespace worktime.server.Data.DataStore
   {
     private const string FILEPATH = ".";
     private const string FILENAME = "{0}.data";
+    private readonly string _dataname;
 
-    private string GetFilePath<T>() => Path.Combine(FILEPATH, string.Format(FILENAME, nameof(T)));
+    public FileDataStoreHelper(string name){
+      _dataname = name;
+    }
+
+    private string GetFilePath<T>() => Path.Combine(FILEPATH, string.Format(FILENAME, _dataname));
 
     public T Load<T>() where T : class
     {

@@ -18,8 +18,10 @@ namespace worktime.server
                 var cert = new X509Certificate2("cert.pfx", "Test123!", X509KeyStorageFlags.UserKeySet);
 
                 var host = new WebHostBuilder()
-                    .UseUrls("https://*:3000")
-                    .UseKestrel(cfg => cfg.UseHttps(cert))
+                    //.UseUrls("https://*:3000")
+                    //.UseKestrel(cfg => cfg.UseHttps(cert))
+                    .UseUrls("http://*:3000")
+                    .UseKestrel()
                     .UseContentRoot(Directory.GetCurrentDirectory())
                     .UseIISIntegration()
                     .UseStartup<Startup>()

@@ -10,6 +10,12 @@ namespace worktime.server.Data.Repository
     public UserRepository(IUserDataStore store){
       _store = store;
     }
+
+    public User GetUser(string userid)
+    {
+      return _store.Get(userid);
+    }
+
     void IUserRepository.CreateOrUpdate(Model.User user)
     {
       var dbUser = _store.Get(user.Id);

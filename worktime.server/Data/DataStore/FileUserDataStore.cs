@@ -8,18 +8,19 @@ namespace worktime.server.Data.DataStore
 {
   public class FileUserDataStore : IUserDataStore
   {
-
-    private const string FileName = "user.data";
-    private const string Filepath = "/";
+    private const string _dataname = nameof(FileUserDataStore);
     private Dictionary<string, User> _users;
     public FileUserDataStore(){
-      _users = new FileDataStoreHelper().Load<Dictionary<string, User>>();
+      _users = new FileDataStoreHelper(_dataname).Load<Dictionary<string, User>>();
+      if(_users == null){
+        _users = new Dictionary<string, User>();
+      }
     }
 
     void IUserDataStore.Add(User user)
     {
       _users.Add(user.Id, user);
-      new FileDataStoreHelper().Save(user);
+      new FileDataStoreHelper(_dataname).Save(_users);
     }
 
     User IUserDataStore.Get(string id)
@@ -39,7 +40,7 @@ namespace worktime.server.Data.DataStore
         dbuser.FirstName = user.FirstName;
         dbuser.LastName = user.LastName;
       }
-      new FileDataStoreHelper().Save(dbuser);
+      new FileDataStoreHelper(_dataname).Save(_users);
     }
   }
 }
