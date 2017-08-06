@@ -13,13 +13,13 @@ namespace worktime.server.Data.DataStore
     private const string Filepath = "/";
     private Dictionary<string, User> _users;
     public FileUserDataStore(){
-      Load();
+      _users = new FileDataStoreHelper().Load<Dictionary<string, User>>();
     }
 
     void IUserDataStore.Add(User user)
     {
       _users.Add(user.Id, user);
-      Save();
+      new FileDataStoreHelper().Save(user);
     }
 
     User IUserDataStore.Get(string id)
@@ -39,31 +39,7 @@ namespace worktime.server.Data.DataStore
         dbuser.FirstName = user.FirstName;
         dbuser.LastName = user.LastName;
       }
-      Save();
-    }
-
-    private void Load()
-    {
-      var filepath = Path.Combine(Filepath, FileName);
-      if(!File.Exists(filepath)){
-        var fs = File.Create(filepath);
-        fs.Dispose();
-      }
-      var filecontent = File.ReadAllText(filepath);
-
-      if (string.IsNullOrEmpty(filecontent))
-      {
-        _users = new Dictionary<string, User>();
-        return;
-      }
-
-      _users = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, User>>(filecontent);
-    }
-
-    private void Save(){
-      var filecontent = Newtonsoft.Json.JsonConvert.SerializeObject(_users);
-      var filepath = Path.Combine(Filepath, FileName);
-      File.WriteAllText(filepath, filecontent);
+      new FileDataStoreHelper().Save(dbuser);
     }
   }
 }
