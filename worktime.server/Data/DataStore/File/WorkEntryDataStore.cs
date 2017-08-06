@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using worktime.server.Data.Model;
 
-namespace worktime.server.Data.DataStore
+namespace worktime.server.Data.DataStore.File
 {
   public class WorkEntryDataStore : IWorkEntryDataStore
   {

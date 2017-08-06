@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace worktime.server.Data.DataStore
+namespace worktime.server.Data.DataStore.File
 {
   public class FileDataStoreHelper
   {
@@ -17,12 +17,12 @@ namespace worktime.server.Data.DataStore
     public T Load<T>() where T : class
     {
       var filepath = GetFilePath<T>();
-      if (!File.Exists(filepath))
+      if (!System.IO.File.Exists(filepath))
       {
-        var fs = File.Create(filepath);
+        var fs = System.IO.File.Create(filepath);
         fs.Dispose();
       }
-      var filecontent = File.ReadAllText(filepath);
+      var filecontent = System.IO.File.ReadAllText(filepath);
 
       if (string.IsNullOrEmpty(filecontent))
       {
@@ -36,7 +36,7 @@ namespace worktime.server.Data.DataStore
     {
       var filecontent = Newtonsoft.Json.JsonConvert.SerializeObject(tosave);
       var filepath = GetFilePath<T>();
-      File.WriteAllText(filepath, filecontent);
+      System.IO.File.WriteAllText(filepath, filecontent);
     }
   }
 }

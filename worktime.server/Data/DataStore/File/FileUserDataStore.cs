@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using worktime.server.Data.Model;
 
-namespace worktime.server.Data.DataStore
+namespace worktime.server.Data.DataStore.File
 {
   public class FileUserDataStore : IUserDataStore
   {

@@ -2,7 +2,7 @@ using System;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace worktime.server.Data.DataStore.MongoModel
+namespace worktime.server.Data.DataStore.Mongo.Model
 {
     public class WorkEntry
     {
@@ -28,7 +28,7 @@ namespace worktime.server.Data.DataStore.MongoModel
 
 
         public static WorkEntry FromDataModel(string userid, Data.Model.WorkEntry entry){
-            var mongoEntry = new MongoModel.WorkEntry();
+            var mongoEntry = new Mongo.Model.WorkEntry();
             mongoEntry.Description = entry.Description;
             mongoEntry.EndTime = entry.EndTime;
             mongoEntry.StartTime = entry.StartTime;
