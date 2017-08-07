@@ -58,7 +58,7 @@ namespace worktime.server
             });
 
             services.AddTransient<Business.User.IUserBL, Business.User.UserBL>();
-            services.AddTransient<Data.DataStore.IUserDataStore, Data.DataStore.File.FileUserDataStore>();
+            services.AddTransient<Data.DataStore.IUserDataStore, Data.DataStore.Mongo.UserDataStore>();
             services.AddTransient<Data.Repository.IUserRepository, Data.Repository.UserRepository>();
             
             services.AddTransient<Data.DataStore.IWorkEntryDataStore, Data.DataStore.Mongo.WorkEntryMongoDataStore>();

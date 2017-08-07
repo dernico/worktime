@@ -32,14 +32,19 @@ namespace worktime.server.Data.DataStore.Mongo
 
     public void Update(User user)
     {
-      var filter = Builders<Mongo.Model.User>.Filter.Eq("UserId", user.Id);
-      var update = Builders<Mongo.Model.User>.Update.Set("", "");
+      var filter = Builders<Mongo.Model.User>.Filter.Eq(u => u.UserId, user.Id);
+      var update = Builders<Mongo.Model.User>.Update
+        .Set(u => u.DisplayName, user.DisplayName)
+        .Set(u => u.FirstName, user.FirstName)
+        .Set(u => u.LastName, user.LastName)
+        .Set(u => u.PictureUrl, user.PictureUrl)
+        .Set(u => u.UserId, user.Id);
       var options = new MongoDB.Driver.FindOneAndUpdateOptions<Mongo.Model.User>();
 
-      var updated = new MongoDb()
+      new MongoDb()
         .Get()
         .GetCollection<Mongo.Model.User>(MongoSettings.TableUsers)
-        .FindOneAndUpdate(filter, update, options);
+        .FindOneAndUpdateAsync(filter, update, options);
     }
   }
 }
