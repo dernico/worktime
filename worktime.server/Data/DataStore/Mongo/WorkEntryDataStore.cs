@@ -6,7 +6,7 @@ using worktime.server.Data.Model;
 
 namespace worktime.server.Data.DataStore.Mongo
 {
-  public class WorkEntryMongoDataStore : IWorkEntryDataStore
+  public class WorkEntryDataStore : IWorkEntryDataStore
   {
     public void Add(string userid, WorkEntry entry)
     {
@@ -16,11 +16,20 @@ namespace worktime.server.Data.DataStore.Mongo
 
     public void Update(string userid, WorkEntry entry)
     {
-      //AddOrUpdate(userid, entry);
-    }
-    private void AddOrUpdate(string userid, WorkEntry entry)
-    {
+      var filter = Builders<Mongo.Model.WorkEntry>.Filter.Eq(w => w.EntryId, entry.Id);
+      var update = Builders<Mongo.Model.WorkEntry>.Update
+        .Set(w=> w.Description, entry.Description)
+        .Set(w => w.EndTime, entry.EndTime)
+        .Set(w => w.EntryId, entry.Id)
+        .Set(w => w.StartTime, entry.StartTime)
+        .Set(w => w.Title, entry.Title)
+        .Set(w => w.UserId, userid);
+      var options = new MongoDB.Driver.FindOneAndUpdateOptions<Mongo.Model.WorkEntry>();
 
+      new MongoDb()
+        .Get()
+        .GetCollection<Mongo.Model.WorkEntry>(MongoSettings.TableWorkEntrys)
+        .FindOneAndUpdateAsync(filter, update, options);
     }
 
     public List<WorkEntry> GetWorkEntrys(string userid)
