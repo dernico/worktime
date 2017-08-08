@@ -7,5 +7,6 @@ namespace worktime.server.Business.WorkEntrys
     {
          List<WorkEntry> GetWorkentrys(string userid);
          void SaveWorkEntry(string userid, WorkEntry entry);
+         void DeleteWorkEntry(string userid, string entryid);
     }
 }

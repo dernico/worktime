@@ -58,5 +58,13 @@ namespace worktime.server.Data.DataStore.Mongo
       }
       return null;
     }
+
+    public void Delete(string userid, string entryid)
+    {
+      new MongoDb()
+        .Get()
+        .GetCollection<Model.WorkEntry>(MongoSettings.TableWorkEntrys)
+        .FindOneAndDeleteAsync(w => w.UserId == userid && w.EntryId == entryid);
+    }
   }
 }

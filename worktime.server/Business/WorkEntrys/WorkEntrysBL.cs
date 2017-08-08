@@ -12,6 +12,12 @@ namespace worktime.server.Business.WorkEntrys
     {
       _repro = repro;
     }
+
+    public void DeleteWorkEntry(string userid, string entryid)
+    {
+      _repro.Delete(userid, entryid);
+    }
+
     public List<WorkEntry> GetWorkentrys(string userid)
     {
       return _repro.GetWorkEntrys(userid);

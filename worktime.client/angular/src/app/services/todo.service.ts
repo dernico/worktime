@@ -16,42 +16,16 @@ export class TodoService {
     loadTodos(): Promise<WorkEntry[]> {
 
         return this.webclient.get(_baseUrl + "api/workentry");
-
-
-        //return new Promise((resolve, reject) => {
-
-        //    this.webclient.get("http://localhost:5001/api/values").then(response => {
-        //        var json = response.json();
-        //        resolve(json as Todo[]);
-        //    })
-        //    .catch(this.handleError);
-        //});
     }
 
     addTodo(todo: WorkEntry): Promise<any> {
         
         return this.webclient.post<WorkEntry[]>(_baseUrl + "api/workentry", todo);
-
-        //return new Promise((resolve, reject) => {
-
-        //    this.loginService.login().then(user => {
-
-        //        const headers = new Headers({ 'Accept': 'application/json' });
-        //        const bearer = `Bearer ${user.access_token}`;
-        //        headers.append("Authorization", bearer);
-
-        //        return this.http
-        //            .post('http://localhost:5001/api/values', todo, { headers: headers })
-        //            .toPromise()
-        //            .then(resolve)
-        //            .catch(this.handleError);
-        //    });
-        //});
     }
 
     deleteTodo(id: number) {
         return this.webclient
-            .delete("http://localhost:5001/api/values/" + id);
+            .delete(_baseUrl + "api/workentry/" + id);
     }
 
     private handleError(error: any): Promise<any> {

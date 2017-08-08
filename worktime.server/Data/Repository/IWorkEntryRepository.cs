@@ -7,5 +7,6 @@ namespace worktime.server.Data.Repository
     {
         List<WorkEntry> GetWorkEntrys(string userid);
         void AddOrUpdateEntry(string userid, WorkEntry entry);
+        void Delete(string userid, string entryid);
     }
 }

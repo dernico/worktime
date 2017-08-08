@@ -44,5 +44,13 @@ namespace worktime.server.Controllers
             var user = _user.GetUser(this.User.Claims.ToList());
             _bl.SaveWorkEntry(user.Id, entry);
         }
+
+        // DELETE api/workentry
+        [HttpDelete("{id}")]
+        public void Delete(string id)
+        {
+            var user = _user.GetUser(this.User.Claims.ToList());
+            _bl.DeleteWorkEntry(user.Id, id.ToString());
+        }
     }
 }

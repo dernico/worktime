@@ -9,5 +9,6 @@ namespace worktime.server.Data.DataStore
          WorkEntry GetWorkEntry(string userid, string entryid);
          void Add(string userid, WorkEntry entry);
          void Update(string userid, WorkEntry entry);
+         void Delete(string userid, string entryid);
     }
 }

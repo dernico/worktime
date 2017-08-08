@@ -16,13 +16,20 @@ namespace worktime.server.Data.Repository
 
     public void AddOrUpdateEntry(string userid, WorkEntry entry)
     {
-      var dbEntry = _repro.GetWorkEntry(userid, entry.Id);
-      if(dbEntry == null){
-          _repro.Add(userid, entry);
+      if (string.IsNullOrEmpty(entry.Id))
+      {
+        entry.Id = Guid.NewGuid().ToString();
+        _repro.Add(userid, entry);
       }
-      else{
-          _repro.Update(userid, entry);
+      else
+      {
+        _repro.Update(userid, entry);
       }
+    }
+
+    public void Delete(string userid, string entryid)
+    {
+      _repro.Delete(userid, entryid);
     }
 
     public List<WorkEntry> GetWorkEntrys(string userid)
