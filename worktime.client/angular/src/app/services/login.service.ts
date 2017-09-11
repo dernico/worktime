@@ -1,31 +1,48 @@
 import { Injectable } from '@angular/core';
-import { UserManager, User, MetadataService, OidcClient } from "oidc-client";
+import { UserManager, User as OidcUser, MetadataService, OidcClient } from "oidc-client";
+import { User } from "../models/user";
 import { config } from '../authconfig';
 
 @Injectable()
 export class LoginService {
   private mgr: UserManager;
   private client: OidcClient;
-  private user: User;
+  private oidcUser: OidcUser;
 
   constructor() {
     this.mgr = new UserManager(config);
     this.client = new OidcClient(config);
+
+    this.mgr.events.addAccessTokenExpiring(function () {
+      console.log("token expiring");
+    });
+
+    this.mgr.events.addAccessTokenExpired(function () {
+        console.log("token expired");
+    });
+  }
+
+  private getUser() : User{
+    var user = new User();
+    user.id_token = this.oidcUser.id_token;
+    return user;
+  }
+
+  private silentRenew(){
+      this.mgr.signinSilent().then(user => {
+        console.log("silent renew successfull");
+      } , err => {
+        console.log("silent renew failed.");
+      });
   }
 
   login(): Promise<User> {
     return new Promise((resolve, reject) => {
 
-      if (this.user) {
-        resolve(this.user);
-        return;
-      }
-
-
-      this.mgr.getUser().then(user => {
-        if (user) {
-          this.user = user;
-          resolve(user);
+      this.mgr.getUser().then(oidcUser => {
+        if (oidcUser) {
+          this.oidcUser = oidcUser;
+          resolve(this.getUser());
         }
         else {
             this.client.createSigninRequest().then(function (req) {
