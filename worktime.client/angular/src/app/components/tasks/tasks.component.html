@@ -3,6 +3,12 @@
 
 <label>Title: <input [(ngModel)]="todoTitle" /></label>
 <label>Description: <input [(ngModel)]="todoDescription" /></label>
+<br >
+<label>Start Datum: <input [(ngModel)]="todoStartDate" type="date" /></label>
+<label>Start Zeit: <input [(ngModel)]="todoStartTime" type="time" /></label>
+
+<label>End Datum: <input [(ngModel)]="todoEndDate" type="date" /></label>
+<label>End Zeit: <input [(ngModel)]="todoEndTime" type="time" /></label>
 
 <button (click)="newTodo()">Add</button>
 
@@ -10,6 +16,8 @@
   <li *ngFor="let todo of todos">
     <h3>{{todo.title}}</h3>
     <p>{{todo.description}}</p>
+    <p>{{todo.startTime}}</p>
+    <p>{{todo.endTime}}</p>
     <button (click)="deleteTodo(todo.id)">Delete</button>
   </li>
 </ul>

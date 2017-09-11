@@ -14,6 +14,10 @@ export class TasksComponent implements OnInit {
     private todos: WorkEntry[];
     private todoTitle: string;
     private todoDescription: string;
+    private todoStartDate: Date;
+    private todoStartTime: number;
+    private todoEndDate: Date;
+    private todoEndTime: number;
 
     constructor(private todoService: TodoService) { }
 
@@ -21,13 +25,20 @@ export class TasksComponent implements OnInit {
         const todo = new WorkEntry();
         todo.title = this.todoTitle;
         todo.description = this.todoDescription;
-        todo.startDate = new Date();
+
+        var startdate = new Date(this.todoStartDate + " " + this.todoStartTime);
+        todo.startTime = startdate;
+
+        var enddate = new Date(this.todoEndDate + " " + this.todoEndTime);
+        todo.endTime = enddate;
 
         this.todoService
             .addTodo(todo)
             .then(() => {
                 this.todoTitle = "";
                 this.todoDescription = "";
+                this.todoStartDate = null;
+                this.todoEndDate = null;
                 this.init();
             });
     }
