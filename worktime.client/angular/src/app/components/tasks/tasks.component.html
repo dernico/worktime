@@ -16,8 +16,8 @@
   <li *ngFor="let todo of todos">
     <h3>{{todo.title}}</h3>
     <p>{{todo.description}}</p>
-    <p>{{todo.startTime}}</p>
-    <p>{{todo.endTime}}</p>
+    <p>{{todo.startTime | date:'medium'}}</p>
+    <p>{{todo.endTime | date:'medium'}}</p>
     <button (click)="deleteTodo(todo.id)">Delete</button>
   </li>
 </ul>

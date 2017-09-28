@@ -7,7 +7,6 @@ import { config } from '../authconfig';
 export class LoginService {
   private mgr: UserManager;
   private client: OidcClient;
-  private oidcUser: OidcUser;
 
   constructor() {
     this.mgr = new UserManager(config);
@@ -22,9 +21,9 @@ export class LoginService {
     });
   }
 
-  private getUser() : User{
+  private getUser(oidcUser:OidcUser) : User{
     var user = new User();
-    user.id_token = this.oidcUser.id_token;
+    user.id_token = oidcUser.id_token;
     return user;
   }
 
@@ -40,9 +39,8 @@ export class LoginService {
     return new Promise((resolve, reject) => {
 
       this.mgr.getUser().then(oidcUser => {
-        if (oidcUser) {
-          this.oidcUser = oidcUser;
-          resolve(this.getUser());
+        if (oidcUser && !oidcUser.expired) {
+          resolve(this.getUser(oidcUser));
         }
         else {
             this.client.createSigninRequest().then(function (req) {

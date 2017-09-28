@@ -14,12 +14,16 @@ export class TasksComponent implements OnInit {
     private todos: WorkEntry[];
     private todoTitle: string;
     private todoDescription: string;
-    private todoStartDate: Date;
-    private todoStartTime: number;
-    private todoEndDate: Date;
-    private todoEndTime: number;
+    private todoStartDate: string;
+    private todoStartTime: string;
+    private todoEndDate: string;
+    private todoEndTime: string;
 
-    constructor(private todoService: TodoService) { }
+    constructor(private todoService: TodoService) { 
+        this.todoStartDate = new Date(Date.now()).toISOString();
+        this.todoEndDate = new Date(Date.now()).toISOString();
+        //this.todoStartTime = Date.now().toISOString();
+    }
 
     newTodo(title, description) {
         const todo = new WorkEntry();
