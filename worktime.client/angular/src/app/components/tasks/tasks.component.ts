@@ -11,13 +11,13 @@ import { WorkEntry } from '../../models/workentry';
 })
 export class TasksComponent implements OnInit {
 
-    private todos: WorkEntry[];
-    private todoTitle: string;
-    private todoDescription: string;
-    private todoStartDate: string;
-    private todoStartTime: string;
-    private todoEndDate: string;
-    private todoEndTime: string;
+    public todos: WorkEntry[];
+    public todoTitle: string;
+    public todoDescription: string;
+    public todoStartDate: string;
+    public todoStartTime: string;
+    public todoEndDate: string;
+    public todoEndTime: string;
 
     constructor(private todoService: TodoService) { 
         this.todoStartDate = new Date(Date.now()).toISOString();
@@ -25,7 +25,7 @@ export class TasksComponent implements OnInit {
         //this.todoStartTime = Date.now().toISOString();
     }
 
-    newTodo(title, description) {
+    newTodo() {
         const todo = new WorkEntry();
         todo.title = this.todoTitle;
         todo.description = this.todoDescription;
