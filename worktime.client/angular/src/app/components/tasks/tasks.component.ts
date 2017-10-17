@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { LoginService } from '../../services/login.service';
-import { WebclientService } from '../../services/webclient.service';
 import { WorkEntry } from '../../models/workentry';
 
 @Component({
     templateUrl: './tasks.component.html',
     styleUrls: ['./tasks.component.css'],
-    providers: [TodoService, LoginService, WebclientService]
+    providers: [TodoService]
 })
 export class TasksComponent implements OnInit {
 
@@ -22,7 +21,6 @@ export class TasksComponent implements OnInit {
     constructor(private todoService: TodoService) { 
         this.todoStartDate = new Date(Date.now()).toISOString();
         this.todoEndDate = new Date(Date.now()).toISOString();
-        //this.todoStartTime = Date.now().toISOString();
     }
 
     newTodo() {
@@ -38,7 +36,7 @@ export class TasksComponent implements OnInit {
 
         this.todoService
             .addTodo(todo)
-            .then(() => {
+            .subscribe(() => {
                 this.todoTitle = "";
                 this.todoDescription = "";
                 this.todoStartDate = null;
@@ -50,7 +48,7 @@ export class TasksComponent implements OnInit {
     deleteTodo(id: number){
         this.todoService
             .deleteTodo(id)
-            .then(() => {
+            .subscribe(() => {
                 this.init();
             });
     }
@@ -58,7 +56,7 @@ export class TasksComponent implements OnInit {
     init() {
         this.todoService
             .loadTodos()
-            .then(todos => {
+            .subscribe(todos => {
                 this.todos = todos;
             });
     }
